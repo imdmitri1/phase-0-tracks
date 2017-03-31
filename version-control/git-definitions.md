@@ -17,3 +17,5 @@
 * What is a merge conflict?
 
 >*when you merge branches there can be mistakes in file's line merging, which causes conflict.*
+
+###*thank you Glenna!*
