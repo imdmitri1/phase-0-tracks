@@ -4,7 +4,37 @@
     <title>2.4</title>
 </head>
 <body>
+<form action="success.html" method="post" name="2.4" id="1form">
+<div>
+    <label>
+        what day is today?</label>
+        <select name="day">
+        <option value="monday"> monday </option>  
+        <option value="tuesday"> tuesday </option>   
+        <option value="wednesday"> wednesday </option>       
+        </select>
+</div>
+<div>
+    <label> what time is it?</label>
+    <input type="time" name="time">
+</div>
+<div>
+    <label>what is your email?</label>
+    <input type="email" name="email" placeholder="name@mail.com">
+</div>
+<div>
+    <input type="checkbox" name="cb-agree" value="1checkbox" >
+    I have read the agreement 
+</div>
 
+<p>
+    <button name="Submit">Submit</button>
+    </p>
 
+</form>
+<p>
+<textarea name="special_request" form="1form"> enter your text here...</textarea>
+</p>
 </body>
 </html>
+
