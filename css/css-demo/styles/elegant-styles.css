@@ -7,14 +7,14 @@ html {
 body {
   font-family: "Georgia", serif;
   padding: 20px 30px;
-  border-radius: 5px;
+  border-radius: 50px;
   background-color: white;
   margin: 30px auto;
   max-width: 960px;
   font-size: 1.2em;
 }
 
-ul {
+ul li {
   list-style-type: square;
 }
 
@@ -64,3 +64,7 @@ is nested inside the contact-info section) */
 #contact-info p {
   line-height: .8;
 }
+ 
+ 
+
+ 
