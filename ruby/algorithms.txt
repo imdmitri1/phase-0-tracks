@@ -1,0 +1,25 @@
+     #Elevator
+ 1 input current_floor(if unknown: ask or find sign of current floor)
+ 2 input floor_you_need_to_be
+ 3 if current_floor != floor_you_need_to_be than (else no elevator need)
+ 4 find an elevator
+ 5 press "elevator call button" to call elevator
+ 6 get in
+ 7 inside find and press "buton # #{floor_need_to_be}"
+ 8 turn to face the elevator door
+ 9 wait for door to close and wait some time for elevator to move
+ 10 wait for door to open
+ 11 if arrival_floor == floor_you_need_to_be than
+ 12 get out
+ 13 (else repeat step 7-11) 
+
+
+
+     #empty stomach problem
+1 do you have money? if yes: (if no - maybe find work and earn some, no food)
+2 do you have time? if yes: (if no - go to fast food restaurant, eat)
+3 go to grocery
+4 buy products 
+5 come home
+6 cook 
+7 eat
