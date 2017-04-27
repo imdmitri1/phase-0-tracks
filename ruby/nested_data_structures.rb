@@ -1,6 +1,6 @@
 highway = {
-    sholder: { 
-        car: {
+    r_sholder: {
+            car: {
             type: "sedan",
             speed: 0,
             condition: "broken, needs to be towed", 
@@ -11,7 +11,7 @@ highway = {
             type: "sedan",
             speed: 55,
             color: "white",
-            pasengers: {front: 1, back: 2}
+            passengers: {front: 1, back: 2}
             } , 
         truck: {
             type: "dryvan",
@@ -24,13 +24,13 @@ highway = {
             type: "SUV",
             speed: 55,
             color: "green",
-            pasengers: {front: 1, back: 0}
+            passengers: {front: 1, back: 0}
             }, 
         bus: { 
             type: "coach",
             speed: 55,
             color: "blue",
-            pasengers: [ 15 ]
+            passengers: [ 15 ]
             }
             },
     lane2: {
@@ -38,25 +38,25 @@ highway = {
             type: "chopper",
             speed: 65,
             color: "black",
-            pasengers: nil
+            passengers: nil
             },
         car1: {
             type: "sedan",
             speed: 65,
             color: "white",
-            pasengers: {front: 0, back: 2} 
+            passengers: {front: 0, back: 2} 
             }, 
         minivan: {
             type: "sedan",
             speed: 63,
             color: "pink",
-            pasengers: {front: 0, back: 1}
+            passengers: {front: 0, back: 1}
             },
         car2: {
             type: "sportcar",
             speed:70,
             color: "white",
-            pasengers: {front: 1}
+            passengers: {front: 1}
             }, 
         truck: {
             type: "flatbed",
@@ -71,24 +71,30 @@ highway = {
             type: "pickup",
             speed: 65,
             color: "red",
-            pasengers: {front: 1, back: 0}
+            passengers: {front: 1, back: 0}
             },
         car2: {
             type: "SUV",
             speed: 64,
             color: "yellow",
-            pasengers: {front: 1, back: 1}
+            passengers: {front: 1, back: 1}
             },
         limo: {
             type: "limo",
             speed: 65,
             color: "black",
-            pasengers: {front: 0, back: 5}
+            passengers: {front: 0, back: 5}
             } 
             },
-    sholder: []
+    l_sholder: []
             }
 
 puts highway
 p "."*80
 p highway.length
+p highway[:lane3][:limo][:color]
+p highway[:lane2][:truck].length
+p highway[:lane2][:truck]
+p highway[:lane1][:bus][:passengers]
+p highway[:lane1][:bus][:passengers][0]
+p highway[:r_sholder][:car]
