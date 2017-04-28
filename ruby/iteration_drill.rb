@@ -5,20 +5,70 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 
 # 1. Iterate through the zombie_apocalypse_supplies array,
 # printing each item in the array separated by an asterisk
+
+zombie_apocalypse_supplies.each { |x| puts "* #{x} *" }
+zombie_apocalypse_supplies.join(" * ")
+
 # ----
+
 
 # 2. In order to keep yourself organized, sort your zombie_apocalypse_supplies
 # in alphabetical order. Do not use any special built-in methods.
+
+def sort(arr)
+alph = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
+  n = arr.length - 1
+  i2 = 0
+    until i2 > n
+          n.times do |i| 
+          if alph.index((arr[i])[0]) > alph.index((arr[i+1])[0])
+                          temp_var = arr[i+1]
+                          arr[i+1] = arr[i]
+                          arr[i] = temp_var
+                         end 
+          end 
+    i2 +=1 
+    end 
+arr 
+end
+
+p sort(zombie_apocalypse_supplies)
+
+
 # ----
+
 
 # 3. Create a method to see if a particular item (string) is in the
 # zombie_apocalypse_supplies. Do not use any special built-in methods.
 # For instance: are boots in your list of supplies?
+
+def search(arr,str)
+    haveit = false
+    arr.each do |x| if x == str
+                    puts "got it: #{x}" 
+                    haveit = true
+                     end
+             end 
+    if haveit == false 
+     p "no match"
+    end
+                    
+end
+search(zombie_apocalypse_supplies, "rations")
+
+
 # ----
 
 # 4. You can't carry too many things, you've only got room in your pack for 5.
 # Remove items in your zombie_apocalypse_supplies in any way you'd like,
 # leaving only 5. Do not use any special built-in methods.
+
+def keep_only(arr,x)
+    (arr.length - x).times { |i| arr.delete_at(rand(x)) }
+    puts arr
+end
+#keep_only(zombie_apocalypse_supplies, 5)
+
 # ----
 
 # 5. You found another survivor! This means you can combine your supplies.
