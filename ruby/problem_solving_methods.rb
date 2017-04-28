@@ -4,11 +4,16 @@ def search_array(arr, num)
     index = 0
         arr.each do |x|
             if arr[index] == num
-                return_index == index
+                return_index = index
             end
             index += 1
+        end
     return_index
 end
+
+# p search_array(arr,33)
+
+
 
 def fib(num)
   fib_array = [0,1]
@@ -31,31 +36,19 @@ end
 
 
 def bubblesort(arr)
-  n = arr.length 
+  n = arr.length - 1
   index = 0
-  swapped = true 
-  
-  
-  while swapped
-    swapped = false 
-    while index < n - 1 
-    
-         if arr[index] > arr[index + 1]
-           num1 = arr[index]
-           num2 = arr[index + 1]
-           arr[index] = num2
-           arr[index + 1] = num1
-           swapped = true
-         end
-         index += 1 
-       
-    end #while end
-    index = 0
-  end
-  arr 
+    until index > n
+          n.times do |i| if arr[i] > arr[i + 1]
+                          w = arr[i + 1]
+                          arr[i + 1] = arr[i]
+                          arr[i] = w
+                         end 
+          end 
+    index +=1 
+    end 
+arr 
 end
-  
-#try to write with an until loop 
-# an loop do 
-arr = [9,1,1,1,1,1,6,2,7,2,8,2]
-p bubblesort(arr)
+
+arr = [9,1,3,8,7,4,7,6,2,6,8,2,5,1,9,7,5,3,8,6,4,1]
+p bubblesort(arr)    
