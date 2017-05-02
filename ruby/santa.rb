@@ -1,4 +1,7 @@
 class Santa
+    attr_reader :age, :ethnicity, :reindeer_ranking
+    attr_accessor :gender
+
     def initialize(gender, ethnicity)
         # puts "Initializing Santa instance"
         @gender = gender
@@ -15,21 +18,7 @@ class Santa
         @reindeer_ranking.delete(name)
         @reindeer_ranking << name
     end
-    def reindeer_ranking
-        @reindeer_ranking
-    end
-
-    def gender=(x)
-        @gender = x
-    end
-
-    def age
-        @age
-    end
-    def ethnicity
-        @ethnicity
-    end
-
+    
     def speak
         puts "Ho, ho, ho! Haaaappy holidays!"
     end
@@ -64,3 +53,21 @@ puts "here is updated reindeer ranking: #{sample.reindeer_ranking}"
 sample.celebrate_birthday  = 5
 puts "here is new age: #{sample.age}"
 puts "ethnicity #{sample.ethnicity}"
+
+ def create_x_santas
+example_genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A"]
+example_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A"]
+i = 0
+x = rand(5..25)
+manys = []
+until x == i
+
+    manys = Santa.new(example_genders[rand(6)], example_ethnicities[rand(6)])
+    manys.celebrate_birthday = rand(0..140)
+    print manys.about,"and I am #{manys.age} years old"
+    puts manys.speak
+    i +=1
+end
+ end
+
+ create_x_santas
