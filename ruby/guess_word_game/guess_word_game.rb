@@ -1,6 +1,6 @@
 class Wordgame
     attr_reader :hidden_word
-    attr_writer :letter
+    #attr_writer :letter
 
 
     def initialize
@@ -29,7 +29,7 @@ class Wordgame
                     abort "You woooooooonnnn!"
                 end
         else puts "wrong guess"
-            @hidden_word.join  
+            p @hidden_word.join  
         end 
     end
 
@@ -38,20 +38,6 @@ class Wordgame
             abort "You won, you got whole word!!! Congrats!"
         else abort "You didn't guess it, GAME OVER"
         end        
-    end
-    def until(a)
-        until a.length == 1 || a == "word"
-        puts "invalid entry / try again"
-        a = gets.chomp
-        end
-        a 
-        if a == "word"
-            puts "111 Enter whole word, it's #{@hidden_word.length} letters long"
-            p @hidden_word.join
-            a = gets.chomp
-            guess_word(a)
-        end
-        
     end
 end
 
@@ -73,28 +59,33 @@ game = Wordgame.new
 puts "Welcome to the Word Guess Game"
 puts "Player 1 guess a word:"
 game.hide_word(gets.chomp)
-puts ":)
-" *50
+puts ":) \n" *50
 puts "Player 2 , you have #{game.hidden_word.length} attempts to guess a word" 
-puts "Please enter 1 letter or type 'word' to enter whole word"
-letter = gets.chomp
-# until letter.length == 1 || letter == "word"
-#     puts "invalid entry / try again"
-#     letter = gets.chomp
-# end
-game.until(letter)
+puts "Please enter a letter or type 'word' to enter whole word"
+
+lettercollector = []
+i= 0
+until i == game.hidden_word.length
+    letter = gets.chomp
+         until  letter.length == 1 || letter == "word" || letter == " "
+            puts "invalid entry: 1 letter at a time please"
+            letter = gets.chomp
+        end
+if lettercollector.include?(letter)
+    i -=1
+end
+lettercollector.push(letter)
 if letter.length == 1
     game.guess_letter(letter)
-        index = 1
-        while game.hidden_word.length != index
-        index +=1
-        puts "enter another letter"
-        letter = gets.chomp
-        game.until(letter)
-        game.guess_letter(letter)
-        end
-    puts "You are out of attemps, you loooooost"
-else puts "Enter whole word, it's #{game.hidden_word.length} letters long"
+elsif letter == "word"
+    puts "Enter whole word, it's #{game.hidden_word.length} letters long"
     letter = gets.chomp
- game.guess_word(letter)
+    if letter.length != game.hidden_word.length
+        puts "you will loose if you don't enter #{game.hidden_word.length} letters long word"
+        letter = gets.chomp
+    end
+    game.guess_word(letter)
 end
+i +=1
+end
+puts "You are out of attempts, Game Over "
