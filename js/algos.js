@@ -21,6 +21,20 @@ function samePair(object1,object2){
     }
 }
 // release 3......................
+function randomArr(i){
+    var arr = [];
+    for (a=0; a < i; a++){
+        var result = ""
+        var l = Math.floor(Math.random()*10) +1;
+        for (var a2=1; a2 <= l; a2++){
+        var s = "abcdefghijklmnopqrstuvwxyz";
+        result = result + s.charAt(Math.floor(Math.random()*25));
+        }
+        arr[a] = result;
+    }    
+    console.log(arr);
+    return arr;
+}
 
 // driver code-----------------------
 longestVar(a);
