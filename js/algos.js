@@ -18,14 +18,23 @@ function longestVar(arr){
     return longVar
 }
 //#release 1..................
-// 
-function samePair(object1,object2){
-    for (i=0; i < object1.length-1; i++){
-        if (object1[i] == object2[i]){
-            console.log("we've got a match:" + object1 +" = " +object2);
-        }
+// getting 2 objects as parameters, and name of
+// comparing key!!!
+// if they are equal, printing: got a match!
+
+function samePair(object1,object2, str1, str2){
+    if (object1[str1] == undefined || object1[str2] == undefined ){
+    console.log("no match");
+    }
+    else if (object1[str1] == object2[str1]) {
+    console.log("we've got a match: " + str1 +" - " + object1[str1]);
+    }
+    else if (object1[str2] == object2[str2]) {
+    console.log("we've got a match: " + str2 +" - " +  object1[str2]);        
     }
 }
+       
+
 // release 2......................
 // creating empty array in our function,running loop
 // for parameter times, every time getting random 
@@ -50,8 +59,9 @@ function randomArr(i){
 longestVar(a);
 longestVar(b);
 //..........
-samePair({name: "Steven", age: 54}, {name: "Tamir", age: 54});
-samePair({animal: "Dog", legs: 4}, {animal: "Dog", legs: 3});
+samePair({name: "Steven", age: 54}, {name: "Tamir", age: 54}, "name", "age");
+samePair({animal: "Dog", legs: 4}, {animal: "Dog", legs: 3}, "animal", "legs");
+samePair({animal: "Dog", legs: 4}, {animal: "Dog", legs: 3}, "abc", "def");
 //............
 randomArr(6);
 randomArr(3);
