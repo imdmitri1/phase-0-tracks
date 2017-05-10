@@ -59,8 +59,7 @@ class VirusPredictor
       speed += 2
     else
 
-      speed
-       += 2.5
+      speed += 2.5
     end
 
     puts " and will spread across the state in #{speed} months.\n\n"
@@ -86,6 +85,12 @@ california.virus_effects
 
 alaska = VirusPredictor.new("Alaska", STATE_DATA["Alaska"][:population_density], STATE_DATA["Alaska"][:population])
 alaska.virus_effects
+
+p "*"*50
+
+STATE_DATA.each do |k,v| k = VirusPredictor.new(k, STATE_DATA[k][:population_density], STATE_DATA[k][:population])
+                  k.virus_effects
+                end
 
 
 #=======================================================================
