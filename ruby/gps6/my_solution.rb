@@ -18,14 +18,14 @@ class VirusPredictor
 
   def virus_effects
     #printing all output data, using parameters from initialization  
-    predicted_deaths(@population_density, @population, @state)
-    speed_of_spread(@population_density, @state)
+    predicted_deaths
+    speed_of_spread 
   end
 
   private
   #predicting death with 3 parameters, creating a formula with
   #coefficient depending on population density, printing output!
-  def predicted_deaths(population_density, population, state)
+  def predicted_deaths
     # predicted deaths is solely based on population density
     if @population_density >= 200
       number_of_deaths = (@population * 0.4).floor
@@ -43,7 +43,7 @@ class VirusPredictor
 
   end
 
-  def speed_of_spread(population_density, state) #in months
+  def speed_of_spread #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
     speed = 0.0
@@ -95,3 +95,9 @@ STATE_DATA.each do |k,v| k = VirusPredictor.new(k, STATE_DATA[k][:population_den
 
 #=======================================================================
 # Reflection Section
+#Difference between hash syntaxes is between keys in a STATE_DATA 
+#one keys are strings with rockets, another are symbols
+
+#for iteration we can use .each .times .map or map!
+
+#all variables are instance - available anywhere in the method
