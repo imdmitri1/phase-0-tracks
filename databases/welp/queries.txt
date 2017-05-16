@@ -1,0 +1,14 @@
+
+
+SELECT * FROM users, businesses, reviews WHERE businesses.id = reviews.business_id AND users.id = reviews.users_id;
+2|Mandy|Kaling|3|Lotus Yoga|1|5|great|3|2
+4|Angela|Jolie|1|Grandy Hollow Wedding Chapel|2|4|good|1|4
+1|Bradford|Pitt|4|Sushi World|3|1|bad|4|1
+
+
+
+SELECT users."first name", businesses.name, reviews.stars, reviews.comment FROM users, businesses, reviews WHERE businesses.id = reviews.business_id and users.id = reviews.users_id;
+Mandy|Lotus Yoga|5|great
+Angela|Grandy Hollow Wedding Chapel|4|good
+Bradford|Sushi World|1|bad
+
