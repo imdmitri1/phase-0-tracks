@@ -7,8 +7,10 @@ SELECT * FROM users, businesses, reviews WHERE businesses.id = reviews.business_
 
 
 
-SELECT users."first name", businesses.name, reviews.stars, reviews.comment FROM users, businesses, reviews WHERE businesses.id = reviews.business_id and users.id = reviews.users_id;
+SELECT users."first name", businesses.name, reviews.stars, reviews.comment FROM users, businesses, reviews WHERE businesses.id = reviews.business_id AND users.id = reviews.users_id;
 Mandy|Lotus Yoga|5|great
 Angela|Grandy Hollow Wedding Chapel|4|good
 Bradford|Sushi World|1|bad
 
+SELECT * FROM users, businesses, reviews WHERE businesses.id = reviews.business_id AND users.id = reviews.users_id AND businesses.id=1;
+4|Angela|Jolie|1|Grandy Hollow Wedding Chapel|2|4|good|1|4
