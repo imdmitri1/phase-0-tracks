@@ -74,4 +74,35 @@ ITA|1|GROUP A
 SLO|1|GROUP B
 
 
-5. 
+5. DELETE FROM teams WHERE playoff="false";
+sqlite> select * from teams
+   ...> ;
+1|RUS|17|true|1
+2|CAN|16|true|2
+3|SWE|16|true|1
+4|USA|15|true|1
+5|CZE|13|true|2
+6|SUI|12|true|2
+7|FIN|11|true|2
+9|LAT|9|true|1
+10|GER|9|true|1
+
+6. SELECT groups.name, teams.name FROM teams JOIN groups ON teams.group_id=groups.id;
+GROUP A|RUS
+GROUP B|CAN
+GROUP A|SWE
+GROUP A|USA
+GROUP B|CZE
+GROUP B|SUI
+GROUP B|FIN
+GROUP A|LAT
+GROUP A|GER
+
+
+7. SELECT groups.name, teams.name FROM teams JOIN groups ON teams.group_id=groups.id WHERE teams.group_id=1;
+GROUP A|RUS
+GROUP A|SWE
+GROUP A|USA
+GROUP A|LAT
+GROUP A|GER
+sqlite>
