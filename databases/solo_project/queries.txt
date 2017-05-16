@@ -1,0 +1,108 @@
+1. SELECT * FROM teams;
+1|RUS|17|true|1
+2|CAN|16|true|2
+3|SWE|16|true|1
+4|USA|15|true|1
+5|CZE|13|true|2
+6|SUI|12|true|2
+7|FIN|11|true|2
+8|FRA|10|false|2
+9|LAT|9|true|1
+10|GER|9|false|1
+11|NOR|8|false|2
+12|DEN|7|false|1
+13|BLR|7|false|2
+14|SVK|4|false|1
+15|ITA|1|false|1
+16|SLO|1|false|2
+
+
+2.  UPDATE teams SET playoff="true" WHERE  name="GER";
+
+1|RUS|17|true|1
+2|CAN|16|true|2
+3|SWE|16|true|1
+4|USA|15|true|1
+5|CZE|13|true|2
+6|SUI|12|true|2
+7|FIN|11|true|2
+8|FRA|10|false|2
+9|LAT|9|true|1
+10|GER|9|true|1
+11|NOR|8|false|2
+12|DEN|7|false|1
+13|BLR|7|false|2
+14|SVK|4|false|1
+15|ITA|1|false|1
+16|SLO|1|false|2
+
+
+3. SELECT * FROM teams, groups WHERE teams.group_id=groups.id;
+1|RUS|17|true|1|1|GROUP A
+2|CAN|16|true|2|2|GROUP B
+3|SWE|16|true|1|1|GROUP A
+4|USA|15|true|1|1|GROUP A
+5|CZE|13|true|2|2|GROUP B
+6|SUI|12|true|2|2|GROUP B
+7|FIN|11|true|2|2|GROUP B
+8|FRA|10|false|2|2|GROUP B
+9|LAT|9|true|1|1|GROUP A
+10|GER|9|true|1|1|GROUP A
+11|NOR|8|false|2|2|GROUP B
+12|DEN|7|false|1|1|GROUP A
+13|BLR|7|false|2|2|GROUP B
+14|SVK|4|false|1|1|GROUP A
+15|ITA|1|false|1|1|GROUP A
+16|SLO|1|false|2|2|GROUP B
+
+4.SELECT teams.name, teams.points, groups.name FROM teams JOIN groups ON teams.group_id = groups.id;
+RUS|17|GROUP A
+CAN|16|GROUP B
+SWE|16|GROUP A
+USA|15|GROUP A
+CZE|13|GROUP B
+SUI|12|GROUP B
+FIN|11|GROUP B
+FRA|10|GROUP B
+LAT|9|GROUP A
+GER|9|GROUP A
+NOR|8|GROUP B
+DEN|7|GROUP A
+BLR|7|GROUP B
+SVK|4|GROUP A
+ITA|1|GROUP A
+SLO|1|GROUP B
+
+
+5. DELETE FROM teams WHERE playoff="false";
+sqlite> select * from teams
+   ...> ;
+1|RUS|17|true|1
+2|CAN|16|true|2
+3|SWE|16|true|1
+4|USA|15|true|1
+5|CZE|13|true|2
+6|SUI|12|true|2
+7|FIN|11|true|2
+9|LAT|9|true|1
+10|GER|9|true|1
+
+6. SELECT groups.name, teams.name FROM teams JOIN groups ON teams.group_id=groups.id;
+GROUP A|RUS
+GROUP B|CAN
+GROUP A|SWE
+GROUP A|USA
+GROUP B|CZE
+GROUP B|SUI
+GROUP B|FIN
+GROUP A|LAT
+GROUP A|GER
+
+
+7. SELECT groups.name, teams.name FROM teams JOIN groups ON teams.group_id=groups.id WHERE teams.group_id=1;
+GROUP A|RUS
+GROUP A|SWE
+GROUP A|USA
+GROUP A|LAT
+GROUP A|GER
+sqlite>
