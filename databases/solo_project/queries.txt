@@ -1,0 +1,58 @@
+1. SELECT * FROM teams;
+1|RUS|17|true|1
+2|CAN|16|true|2
+3|SWE|16|true|1
+4|USA|15|true|1
+5|CZE|13|true|2
+6|SUI|12|true|2
+7|FIN|11|true|2
+8|FRA|10|false|2
+9|LAT|9|true|1
+10|GER|9|false|1
+11|NOR|8|false|2
+12|DEN|7|false|1
+13|BLR|7|false|2
+14|SVK|4|false|1
+15|ITA|1|false|1
+16|SLO|1|false|2
+
+
+2.  UPDATE teams SET playoff="true" WHERE  name="GER";
+
+1|RUS|17|true|1
+2|CAN|16|true|2
+3|SWE|16|true|1
+4|USA|15|true|1
+5|CZE|13|true|2
+6|SUI|12|true|2
+7|FIN|11|true|2
+8|FRA|10|false|2
+9|LAT|9|true|1
+10|GER|9|true|1
+11|NOR|8|false|2
+12|DEN|7|false|1
+13|BLR|7|false|2
+14|SVK|4|false|1
+15|ITA|1|false|1
+16|SLO|1|false|2
+
+
+3. SELECT * FROM teams, groups WHERE teams.group_id=groups.id;
+1|RUS|17|true|1|1|GROUP A
+2|CAN|16|true|2|2|GROUP B
+3|SWE|16|true|1|1|GROUP A
+4|USA|15|true|1|1|GROUP A
+5|CZE|13|true|2|2|GROUP B
+6|SUI|12|true|2|2|GROUP B
+7|FIN|11|true|2|2|GROUP B
+8|FRA|10|false|2|2|GROUP B
+9|LAT|9|true|1|1|GROUP A
+10|GER|9|true|1|1|GROUP A
+11|NOR|8|false|2|2|GROUP B
+12|DEN|7|false|1|1|GROUP A
+13|BLR|7|false|2|2|GROUP B
+14|SVK|4|false|1|1|GROUP A
+15|ITA|1|false|1|1|GROUP A
+16|SLO|1|false|2|2|GROUP B
+
+4.
