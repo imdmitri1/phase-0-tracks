@@ -8,7 +8,7 @@ require 'sqlite3'
 require_relative 'data.db'
 
 
-def choise1
+def choice1
      p "lets start, did you work out today(y/n)?"
     workout = gets.chomp
     until workout == "y" || workout == "n"
@@ -44,6 +44,34 @@ def choise1
 
 end
 
+def choice2
+    p <<-PER1
+    what period do you want to see?
+        1 for yesterday
+        2 for last week
+        3 for last month
+        4 for hole year
+        5 for all records
+    PER1
+    period = gets.chomp
+    until period === 1..5
+        p "1 to 5 only!"
+        period = gets.chomp
+    end
+    if period == 1
+
+    elsif period == 2
+
+    elsif period == 3
+
+    elsif period == 4
+
+    elsif period == 5
+
+    end     
+        
+end
+
 
 #USER INTERFACE ....................................
 
@@ -54,17 +82,18 @@ Press:   1 to enter todays report,
          3 to get random food you should eat today
 UI
 choice = gets.chomp
-    until choise == 1 || choise == 2 || choise == 3
+    until choice == 1 || choice == 2 || choice == 3
         p "be attantive! 1, 2 or 3!"
-        choise = gets.chomp
+        choice = gets.chomp
     end
 
-if choise = 1
-    choise1 
+if choice = 1
+    choice1 
 
-elsif  choise = 2
+elsif  choice = 2
+    choise2
 
-elsif  choise = 3
+elsif  choice = 3
 
 end
     
