@@ -72,6 +72,31 @@ def choice2
         
 end
 
+# random food?????????????????
+def choice3
+    puts "you random healthy food today is #{}"
+    puts "press 
+    1 to get another one,
+    2 to add food item to your database or 
+    3 to quit"
+    choise3var = gets.chomp
+    until choise3var === 1..3
+        puts "1 to 3 only please"
+        choise3var = gets.chomp        
+    end
+
+    if choise3var == 1
+
+    elsif choise3var == 2
+
+    elsif choise3var == 3
+
+    end         
+            
+
+end 
+
+
 
 #USER INTERFACE ....................................
 
@@ -94,7 +119,7 @@ elsif  choice = 2
     choise2
 
 elsif  choice = 3
-
+    choise3
 end
     
-    
+#need to add quit 
