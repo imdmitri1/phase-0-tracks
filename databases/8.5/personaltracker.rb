@@ -19,7 +19,7 @@ def choice1(db)
     if workout == "y"
         workout = "true"
        puts "describe your workout!(ex: run, swim, gym)"
-        describtion = gets.chomp
+        description = gets.chomp
        puts "how hard did you work out? (from 1(easiest) to 5(hardest)"
         level = gets.to_i
        puts "how many hours did you sleep last night?"
@@ -29,8 +29,8 @@ def choice1(db)
 
     else workout == "n"
         workout = "false"
-        description = ""
-        level = ""
+        description = "lazy day"
+        level = "0"
        puts "how many hours did you sleep last night?"
         night = gets.chomp.to_i
        puts "overall mood today? (1 - bad, 5 - good)"
@@ -40,11 +40,10 @@ def choice1(db)
     db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[workout, description, level, night, mood])
     
     #30.times {db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[["true","false"][rand(0..1)], ["swim","run","weight lifting","tennis"][rand(0..3)], rand(1..5), rand(5..8), rand(1..5)]) }
-    # view = db.execute(".header on")
-    view = db.execute("SELECT * FROM workouts")
-    view.each do |view| 
-        puts    "#{view[0]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
-    end
+    # view = db.execute("SELECT * FROM workouts")
+    # view.each do |view| 
+    #     puts  "#{view[0]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
+    # end
 end
 
 def choice2(db)
@@ -61,9 +60,10 @@ def choice2(db)
         period = gets.to_i
     end
     if period == 1
-        puts "how many workouts do you want to see?"
-        n=gets.to_i
         view = db.execute("SELECT * FROM workouts")
+        puts "how many workouts do you want to see(max=#{view.length})?"
+        n=gets.to_i
+        p "# - Type - intensity - hours slept - mood level"
         until n < 1
         view[view.length - n] 
         p    "#{view[view.length - n][0]} - #{view[view.length - n][2]} - #{view[view.length - n][3]} - #{view[view.length - n][4]} - #{view[view.length - n][5]}"
@@ -72,6 +72,7 @@ def choice2(db)
 
     elsif period == 2
         view = db.execute("SELECT * FROM workouts")
+        p "# - Type - intensity - hours slept - mood level"
         n = 7
         until n < 1
         view[view.length - n] 
@@ -81,6 +82,7 @@ def choice2(db)
 
     elsif period == 3
         view = db.execute("SELECT * FROM workouts")
+        p "# - Type - intensity - hours slept - mood level"
         n = 30
         until n < 1
         view[view.length - n] 
@@ -90,6 +92,7 @@ def choice2(db)
 
     elsif period == 4
         view = db.execute("SELECT * FROM workouts")
+        p "# - Type - intensity - hours slept - mood level"
         view.each do |view| 
         puts    "#{view[0]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
     end
@@ -109,20 +112,20 @@ def choice3(db)
     # db.execute("INSERT INTO food (name) VALUES ("rice")")
     food = db.execute("SELECT * FROM food")
     puts "your food collection: #{food.join(", ")}"
-    puts "you random healthy food for today is #{(food[rand(0..(food.length-1))]).join}"
+    puts "you random healthy food for today is #{(food[rand(0..(food.length-1))]).join("")}"
      
     puts "press 
-    1 to get another random meal,
+    1 to get another random meal
     2 to add food item to your database or 
-    3 to quit"
-    choise3var = gets.to_i
-    until (1..3).include?(choise3var)
+    3 to go back"
+    choice3var = gets.to_i
+    until (1..3).include?(choice3var)
         puts "1 to 3 only please"
-        choise3var = gets.to_i        
+        choice3var = gets.to_i        
     end
-    if choise3var == 1
-    puts "you random healthy food for today is #{food[rand(0..(food.length-1))][1]}"
-    elsif choise3var == 2
+    if choice3var == 1
+    puts "you random healthy food for today is #{(food[rand(0..(food.length-1))]).join("")}"
+    elsif choice3var == 2
         puts "enter your meal!"
         meal = gets.chomp
         db.execute("INSERT INTO food (name) VALUES (?)",[meal])
@@ -132,16 +135,19 @@ end
 
 
 #USER INTERFACE ....................................
-
-puts <<-UI
-Hi, today is 'add date', what would you like to do? Press:
-         1 to enter todays report, 
-         2 to check you history,
-         3 to get random food you should eat today
-UI
+puts "Hi, today is 'add date', what would you like to do? "
+choice = 0
+until choice == 4
+    puts <<-UI
+    Press:
+             1 to enter todays report
+             2 to check you history
+             3 to get random food you should eat today
+             4 to quit
+    UI
 choice = gets.to_i
-    until choice == 1 || choice == 2 || choice == 3
-       puts "be attentive! 1, 2 or 3!"
+    until choice == 1 || choice == 2 || choice == 3 || choice == 4
+       puts "be attentive! 1, 2, 3, or 4!"
         choice = gets.chomp
     end
 
@@ -160,14 +166,19 @@ choice = gets.to_i
     db.execute(create_workouts_table)
 
 
-if choice == 1
-    choice1(db) 
+    if choice == 1
+        choice1(db) 
 
-elsif  choice == 2
-     choice2(db)
+    elsif  choice == 2
+         choice2(db)
 
-elsif  choice == 3
-     choice3(db)
+    elsif  choice == 3
+         choice3(db)
+    elsif choice == 4
+        choice = 4
+    end
+
 end
+puts "Good bye, come back tomorrow!"
     
 #need to add quit 
