@@ -5,47 +5,43 @@
 # store it in appropriate tables
 # create output for desire amount of days
 require 'sqlite3'
-require_relative 'data.db'
+# require_relative 'data.db'
 
 
-def choice1
-     p "lets start, did you work out today(y/n)?"
+def choice1(db)
+    puts"lets start, did you work out today(y/n)?"
     workout = gets.chomp
     until workout == "y" || workout == "n"
-        p "y/n only"
+       puts "y/n only"
         workout = gets.chomp
     end
 
     if workout == "y"
-        workout = true
-        p "describe your workout!(ex: run, swim, gym)"
+        workout = "true"
+       puts "describe your workout!(ex: run, swim, gym)"
         describtion = gets.chomp
-        p "how hard did you work out? (from 1(easiest) to 5(hardest)"
+       puts "how hard did you work out? (from 1(easiest) to 5(hardest)"
         level = gets.to_i
-        p "how many hours did you sleep last night?"
+       puts "how many hours did you sleep last night?"
         night = gets.chomp.to_i
-        p "overall mood today? (1 - bad, 5 - good)"
+       puts "overall mood today? (1 - bad, 5 - good)"
         mood = gets.to_i
 
     else workout == "n"
-        workout = false
+        workout = "false"
         description = ""
         level = ""
-        p "how many hours did you sleep last night?"
+       puts "how many hours did you sleep last night?"
         night = gets.chomp.to_i
-        p "overall mood today? (1 - bad, 5 - good)"
+       puts "overall mood today? (1 - bad, 5 - good)"
         mood = gets.to_i
     end
 
-    db = data.db
-    db.execute("INSERT INTO workouts 
-        (workout, description, level, night, mood)
-         VALUES (?, ?, ?, ?, ?)",[workout, description, level, night, mood])
-
+    db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[workout, description, level, night, mood])
 end
-
+=begin
 def choice2
-    p <<-PER1
+   puts <<-PER1
     what period do you want to see?
         1 for yesterday
         2 for last week
@@ -54,8 +50,8 @@ def choice2
         5 for all records
     PER1
     period = gets.chomp
-    until period === 1..5
-        p "1 to 5 only!"
+    until period == 1..5
+       puts"1 to 5 only!"
         period = gets.chomp
     end
     if period == 1
@@ -80,7 +76,7 @@ def choice3
     2 to add food item to your database or 
     3 to quit"
     choise3var = gets.chomp
-    until choise3var === 1..3
+    until choise3var == 1..3
         puts "1 to 3 only please"
         choise3var = gets.chomp        
     end
@@ -96,30 +92,45 @@ def choice3
 
 end 
 
-
+=end
 
 #USER INTERFACE ....................................
 
 p <<-UI
 Hi, today is 'add date', what would you like to do?
-Press:   1 to enter todays report, 
-         2 to check you history,
+Press:   1 to enter todays report, /n 
+         2 to check you history,/n
          3 to get random food you should eat today
 UI
-choice = gets.chomp
+choice = gets.to_i
     until choice == 1 || choice == 2 || choice == 3
-        p "be attantive! 1, 2 or 3!"
+       puts "be attentive! 1, 2 or 3!"
         choice = gets.chomp
     end
 
-if choice = 1
-    choice1 
+    db = SQLite3::Database.new("data.db")
+    create_workouts_table = <<-W
+    CREATE TABLE IF NOT EXISTS workouts(
+    id INTEGER PRIMARY KEY,
+    workout BOOLEAN,
+    description VARCHAR(255),
+    level INT,
+    night INT,
+    mood INT
+    )
+    W
 
-elsif  choice = 2
-    choise2
+    db.execute(create_workouts_table)
 
-elsif  choice = 3
-    choise3
+
+if choice == 1
+    choice1(db) 
+
+elsif  choice == 2
+    # choise2
+
+elsif  choice == 3
+    # choise3
 end
     
 #need to add quit 
