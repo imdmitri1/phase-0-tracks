@@ -39,37 +39,59 @@ def choice1(db)
 
     db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[workout, description, level, night, mood])
     
-    #20.times {db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[["true","false"][rand(0..1)], ["pool","run","weight lifting"][rand(0..2)], rand(1..5), rand(5..8), rand(1..5)]) }
-
+    #30.times {db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[["true","false"][rand(0..1)], ["swim","run","weight lifting","tennis"][rand(0..3)], rand(1..5), rand(5..8), rand(1..5)]) }
+    # view = db.execute(".header on")
     view = db.execute("SELECT * FROM workouts")
     view.each do |view| 
-        puts    "#{view[1]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
+        puts    "#{view[0]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
     end
 end
-def choice2
+def choice2(db)
    puts <<-PER1
     what period do you want to see?
-        1 for yesterday
+        1 if you want to choose period in days
         2 for last week
         3 for last month
-        4 for hole year
-        5 for all records
+        4 for all records
     PER1
-    period = gets.chomp
-    until period == 1..5
-       puts"1 to 5 only!"
-        period = gets.chomp
+    period = gets.to_i
+    until (1..4).include?(period) 
+       puts"1 to 4 only!"
+        period = gets.to_i
     end
     if period == 1
+        puts "how many workouts do you want to see?"
+        n=gets.to_i
+        view = db.execute("SELECT * FROM workouts")
+        until n < 1
+        view[view.length - n] 
+        p    "#{view[view.length - n][0]} - #{view[view.length - n][2]} - #{view[view.length - n][3]} - #{view[view.length - n][4]} - #{view[view.length - n][5]}"
+        n-=1
+        end
 
     elsif period == 2
+        view = db.execute("SELECT * FROM workouts")
+        n = 7
+        until n < 1
+        view[view.length - n] 
+        p    "#{view[view.length - n][0]} - #{view[view.length - n][2]} - #{view[view.length - n][3]} - #{view[view.length - n][4]} - #{view[view.length - n][5]}"
+        n-=1
+        end
 
     elsif period == 3
+        view = db.execute("SELECT * FROM workouts")
+        n = 30
+        until n < 1
+        view[view.length - n] 
+        p    "#{view[view.length - n][0]} - #{view[view.length - n][2]} - #{view[view.length - n][3]} - #{view[view.length - n][4]} - #{view[view.length - n][5]}"
+        n-=1
+        end
 
     elsif period == 4
-
-    elsif period == 5
-
+        view = db.execute("SELECT * FROM workouts")
+        view.each do |view| 
+        puts    "#{view[0]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
+    end
     end     
         
 end
@@ -103,10 +125,10 @@ end
 
 #USER INTERFACE ....................................
 
-p <<-UI
-Hi, today is 'add date', what would you like to do?
-Press:   1 to enter todays report, /n 
-         2 to check you history,/n
+puts <<-UI
+Hi, today is 'add date', what would you like to do? Press:
+         1 to enter todays report, 
+         2 to check you history,
          3 to get random food you should eat today
 UI
 choice = gets.to_i
@@ -134,7 +156,7 @@ if choice == 1
     choice1(db) 
 
 elsif  choice == 2
-    # choise2
+     choice2(db)
 
 elsif  choice == 3
     # choise3
