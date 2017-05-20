@@ -46,6 +46,7 @@ def choice1(db)
         puts    "#{view[0]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
     end
 end
+
 def choice2(db)
    puts <<-PER1
     what period do you want to see?
@@ -95,33 +96,40 @@ def choice2(db)
     end     
         
 end
-=begin
 
-# random food?????????????????
-def choice3
-    puts "you random healthy food today is #{}"
+def choice3(db)
+
+    # create_food_table = <<-F
+    # CREATE TABLE IF NOT EXISTS food(
+    # id INTEGER PRIMARY KEY,
+    # name VARCHAR(255),
+    # )
+    # F
+    # db.execute(create_food_table)
+    # db.execute("INSERT INTO food (name) VALUES ("rice")")
+    food = db.execute("SELECT * FROM food")
+    puts "your food collection: #{food.join(", ")}"
+    puts "you random healthy food for today is #{(food[rand(0..(food.length-1))]).join}"
+     
     puts "press 
-    1 to get another one,
+    1 to get another random meal,
     2 to add food item to your database or 
     3 to quit"
-    choise3var = gets.chomp
-    until choise3var == 1..3
+    choise3var = gets.to_i
+    until (1..3).include?(choise3var)
         puts "1 to 3 only please"
-        choise3var = gets.chomp        
+        choise3var = gets.to_i        
     end
-
     if choise3var == 1
-
+    puts "you random healthy food for today is #{food[rand(0..(food.length-1))][1]}"
     elsif choise3var == 2
-
-    elsif choise3var == 3
-
-    end         
-            
+        puts "enter your meal!"
+        meal = gets.chomp
+        db.execute("INSERT INTO food (name) VALUES (?)",[meal])
+    end            
 
 end 
 
-=end
 
 #USER INTERFACE ....................................
 
@@ -159,7 +167,7 @@ elsif  choice == 2
      choice2(db)
 
 elsif  choice == 3
-    # choise3
+     choice3(db)
 end
     
 #need to add quit 
