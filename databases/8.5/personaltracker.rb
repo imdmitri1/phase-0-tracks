@@ -7,7 +7,7 @@
 require 'sqlite3'
 
 
-def choice1(db)
+def choice1(db, date)
     puts"lets start, did you work out today(y/n)?"
     workout = gets.chomp
     until workout == "y" || workout == "n"
@@ -23,8 +23,14 @@ def choice1(db)
         level = gets.to_i
        puts "how many hours did you sleep last night?"
         night = gets.chomp.to_i
+        if night < 6
+            puts "You should sleep at least 6 hours!"
+        end
        puts "overall mood today? (1 - bad, 5 - good)"
         mood = gets.to_i
+        if mood < 3
+            puts "common, you've got to smile!!!"
+        end
 
     else workout == "n"
         workout = "false"
@@ -35,13 +41,12 @@ def choice1(db)
        puts "overall mood today? (1 - bad, 5 - good)"
         mood = gets.to_i
     end
-
-    db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[workout, description, level, night, mood])
+    db.execute("INSERT INTO workouts (date, workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?, ?)",[date, workout, description, level, night, mood])
     
 
 end
 
-def choice2(db)
+def choice2(db, date)
     view = db.execute("SELECT * FROM workouts")
         if view.length < 30
         puts "Ops, looks like you don't have much records, do you want to synchronize last month? press - 6 !"
@@ -56,7 +61,7 @@ def choice2(db)
     PER1
     period = gets.to_i
     until (1..6).include?(period) 
-       puts"1 to 4 only!"
+       puts"1 to 5 only!"
         period = gets.to_i
     end
     if period == 1
@@ -66,39 +71,41 @@ def choice2(db)
             puts "invalid number, only #{view.length} records available, please enter again"
             n = gets.to_i
         end
-        puts "# - Type - \t\tintensity - hours slept last night - mood level"
+        puts "# -  date  - \ttype - \t\tintensity - hours slept last night - mood level"
         until n < 1
         view[view.length - n] 
-        puts "#{view[view.length - n][0]} - #{view[view.length - n][2]} - \t\t#{view[view.length - n][3]} - \t\t#{view[view.length - n][4]} - \t\t\t#{view[view.length - n][5]}"
+        puts "#{view[view.length - n][0]} - #{view[view.length - n][1]} - \t#{view[view.length - n][3]} - \t\t#{view[view.length - n][4]} - \t\t\t#{view[view.length - n][5]} - \t#{view[view.length - n][6]}"
         n-=1
         end
 
     elsif period == 2
-        # break if view.length < 7
-        # if view.length < 7
-        #     break "not enough records"
-        # end
-        puts "# - Type - \t\tintensity - hours slept last night - mood level"
+        puts "# -  date  - \ttype - \t\tintensity - hours slept last night - mood level"
         n = 7
+        if view.length < 7
+           n = view.length
+        end        
         until n < 1
         view[view.length - n] 
-        puts "#{view[view.length - n][0]} - #{view[view.length - n][2]} - \t\t#{view[view.length - n][3]} - \t\t#{view[view.length - n][4]} - \t\t\t#{view[view.length - n][5]}"
+        puts "#{view[view.length - n][0]} - #{view[view.length - n][1]} - \t#{view[view.length - n][3]} - \t\t#{view[view.length - n][4]} - \t\t\t#{view[view.length - n][5]} - \t#{view[view.length - n][6]}"
         n-=1
         end
 
     elsif period == 3
-        puts "# - Type - \t\tintensity - hours slept last night - mood level"
+        puts "# -  date  - \ttype - \t\tintensity - hours slept last night - mood level"
         n = 30
+        if view.length < 30
+           n = view.length
+        end 
         until n < 1
         view[view.length - n] 
-        puts "#{view[view.length - n][0]} - #{view[view.length - n][2]} - \t\t#{view[view.length - n][3]} - \t\t#{view[view.length - n][4]} - \t\t\t#{view[view.length - n][5]}"
+        puts "#{view[view.length - n][0]} - #{view[view.length - n][1]} - \t#{view[view.length - n][3]} - \t\t#{view[view.length - n][4]} - \t\t\t#{view[view.length - n][5]} - \t#{view[view.length - n][6]}"
         n-=1
         end
 
     elsif period == 4
-        puts "# - Type - \t\tintensity - hours slept last night - mood level"
+        puts "# -  date  - \ttype - \t\tintensity - hours slept last night - mood level"
         view.each do |view| 
-        puts    "#{view[0]} - #{view[2]}  \t\t#{view[3]}  \t\t#{view[4]}  \t\t#{view[5]}"
+        puts    "#{view[0]} - #{view[1]}  \t#{view[3]}  \t\t#{view[4]}  \t\t#{view[5]}  \t#{view[6]} "
                 end
     elsif period == 5
         view1 = <<-VIEW1
@@ -106,12 +113,12 @@ def choice2(db)
             VIEW1
 
         view = db.execute(view1)
-        puts "# - Type - \t\tintensity - hours slept last night - mood level"
+        puts "# -  date  - \ttype - \t\tintensity - hours slept last night - mood level"
         view.each do |view| 
-        puts    "#{view[0]} - #{view[2]}  \t\t#{view[3]}  \t\t#{view[4]}  \t\t#{view[5]}"
+        puts    "#{view[0]} - #{view[1]}  \t#{view[3]}  \t\t#{view[4]}  \t\t#{view[5]}  \t\t\t#{view[6]} "
                 end
     elsif period == 6
-        30.times {db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",["true", ["swim","run","weight lifting","tennis"][rand(0..3)], rand(1..5), rand(5..8), rand(1..5)]) } 
+        30.times { db.execute("INSERT INTO workouts (date, workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?, ?)",[date,"true", ["swim","run","weight lifting","tennis"][rand(0..3)], rand(1..5), rand(5..8), rand(1..5)]) } 
         p "You successfully added 30 last work outs! ;) "           
     end     
         
@@ -163,7 +170,10 @@ end
 
 
 #USER INTERFACE ....................................
-puts "Hi, today is 'add date', what would you like to do? "
+puts "Hi, welcome to your personal work out tracker, we want you stay fit and healthy!"
+time = Time.new
+date = time.strftime("%m/%d/%y")
+puts "today is #{time.strftime("%A, %m/%d/%y")}, what would you like to do? "
 choice = 0
 until choice == 4
     puts <<-UI
@@ -176,13 +186,14 @@ until choice == 4
 choice = gets.to_i
     until choice == 1 || choice == 2 || choice == 3 || choice == 4
        puts "be attentive! 1, 2, 3, or 4!"
-        choice = gets.chomp
+        choice = gets.to_i
     end
 
     db = SQLite3::Database.new("data.db")
     create_workouts_table = <<-W
     CREATE TABLE IF NOT EXISTS workouts(
     id INTEGER PRIMARY KEY,
+    date VARCHAR(255),
     workout BOOLEAN,
     description VARCHAR(255),
     level INT,
@@ -195,10 +206,10 @@ choice = gets.to_i
 
 
     if choice == 1
-        choice1(db) 
+        choice1(db, date) 
 
     elsif  choice == 2
-         choice2(db)
+         choice2(db, date)
 
     elsif  choice == 3
          choice3(db)
