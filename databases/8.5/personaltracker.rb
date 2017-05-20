@@ -5,7 +5,6 @@
 # store it in appropriate tables
 # create output for desire amount of days
 require 'sqlite3'
-# require_relative 'data.db'
 
 
 def choice1(db)
@@ -39,15 +38,15 @@ def choice1(db)
 
     db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[workout, description, level, night, mood])
     
-    #30.times {db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[["true","false"][rand(0..1)], ["swim","run","weight lifting","tennis"][rand(0..3)], rand(1..5), rand(5..8), rand(1..5)]) }
-    # view = db.execute("SELECT * FROM workouts")
-    # view.each do |view| 
-    #     puts  "#{view[0]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
-    # end
+
 end
 
 def choice2(db)
-   puts <<-PER1
+    view = db.execute("SELECT * FROM workouts")
+        if view.length < 30
+        puts "Ops, looks like you don't have much records, do you want to synchronize last month? press - 6 !"
+        end
+    puts <<-PER1
     what period do you want to see?
         1 if you want to choose period in days
         2 for last week
@@ -56,16 +55,17 @@ def choice2(db)
         5 show only days with workouts
     PER1
     period = gets.to_i
-    until (1..5).include?(period) 
+    until (1..6).include?(period) 
        puts"1 to 4 only!"
         period = gets.to_i
     end
-        # view = db.execute(".mode column")
-        view = db.execute("SELECT * FROM workouts")
     if period == 1
-        # view = db.execute("SELECT * FROM workouts")
         puts "how many workouts do you want to see(max=#{view.length})?"
         n=gets.to_i
+        while n>view.length
+            puts "invalid number, only #{view.length} records available, please enter again"
+            n = gets.to_i
+        end
         puts "# - Type - \t\tintensity - hours slept last night - mood level"
         until n < 1
         view[view.length - n] 
@@ -74,7 +74,10 @@ def choice2(db)
         end
 
     elsif period == 2
-        # view = db.execute("SELECT * FROM workouts")
+        # break if view.length < 7
+        # if view.length < 7
+        #     break "not enough records"
+        # end
         puts "# - Type - \t\tintensity - hours slept last night - mood level"
         n = 7
         until n < 1
@@ -84,7 +87,6 @@ def choice2(db)
         end
 
     elsif period == 3
-        # view = db.execute("SELECT * FROM workouts")
         puts "# - Type - \t\tintensity - hours slept last night - mood level"
         n = 30
         until n < 1
@@ -94,7 +96,6 @@ def choice2(db)
         end
 
     elsif period == 4
-        # view = db.execute("SELECT * FROM workouts")
         puts "# - Type - \t\tintensity - hours slept last night - mood level"
         view.each do |view| 
         puts    "#{view[0]} - #{view[2]}  \t\t#{view[3]}  \t\t#{view[4]}  \t\t#{view[5]}"
@@ -109,7 +110,9 @@ def choice2(db)
         view.each do |view| 
         puts    "#{view[0]} - #{view[2]}  \t\t#{view[3]}  \t\t#{view[4]}  \t\t#{view[5]}"
                 end
-            
+    elsif period == 6
+        30.times {db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",["true", ["swim","run","weight lifting","tennis"][rand(0..3)], rand(1..5), rand(5..8), rand(1..5)]) } 
+        p "You successfully added 30 last work outs! ;) "           
     end     
         
 end
@@ -118,18 +121,21 @@ def choice3(db)
 
     create_food_table = <<-F
     CREATE TABLE IF NOT EXISTS food(
-    id INTEGER PRIMARY KEY,
-    name VARCHAR(255),
+    name VARCHAR(255)
     )
-
-    INSERT INTO food (name) VALUES ("rice")
-
     F
     db.execute(create_food_table)
-    # rice = <<-RI
-    # INSERT INTO food (name) VALUES ("rice")
-    # RI
-    # db.execute(rice)
+    rice = <<-RI
+    INSERT INTO food (name) VALUES ("rice")
+    RI
+    salad = <<-SA
+    INSERT INTO food (name) VALUES ("salad")
+    SA
+    food = db.execute("SELECT * FROM food")
+    if food.empty?
+        db.execute(rice)
+        db.execute(salad)
+    end
     food = db.execute("SELECT * FROM food")
     puts "your food collection: #{food.join(", ")}"
     puts "you random healthy food for today is #{(food[rand(0..(food.length-1))]).join("")}"
@@ -146,9 +152,11 @@ def choice3(db)
     if choice3var == 1
     puts "you random healthy food for today is #{(food[rand(0..(food.length-1))]).join("")}"
     elsif choice3var == 2
+        db.execute(create_food_table)
         puts "enter your meal!"
         meal = gets.chomp
         db.execute("INSERT INTO food (name) VALUES (?)",[meal])
+        p "good job!"
     end            
 
 end 
@@ -201,4 +209,3 @@ choice = gets.to_i
 end
 puts "Good bye, come back tomorrow!"
     
-#need to add quit 
