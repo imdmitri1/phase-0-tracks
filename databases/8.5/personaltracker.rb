@@ -53,63 +53,83 @@ def choice2(db)
         2 for last week
         3 for last month
         4 for all records
+        5 show only days with workouts
     PER1
     period = gets.to_i
-    until (1..4).include?(period) 
+    until (1..5).include?(period) 
        puts"1 to 4 only!"
         period = gets.to_i
     end
-    if period == 1
+        # view = db.execute(".mode column")
         view = db.execute("SELECT * FROM workouts")
+    if period == 1
+        # view = db.execute("SELECT * FROM workouts")
         puts "how many workouts do you want to see(max=#{view.length})?"
         n=gets.to_i
-        p "# - Type - intensity - hours slept - mood level"
+        puts "# - Type - \t\tintensity - hours slept last night - mood level"
         until n < 1
         view[view.length - n] 
-        p    "#{view[view.length - n][0]} - #{view[view.length - n][2]} - #{view[view.length - n][3]} - #{view[view.length - n][4]} - #{view[view.length - n][5]}"
+        puts "#{view[view.length - n][0]} - #{view[view.length - n][2]} - \t\t#{view[view.length - n][3]} - \t\t#{view[view.length - n][4]} - \t\t\t#{view[view.length - n][5]}"
         n-=1
         end
 
     elsif period == 2
-        view = db.execute("SELECT * FROM workouts")
-        p "# - Type - intensity - hours slept - mood level"
+        # view = db.execute("SELECT * FROM workouts")
+        puts "# - Type - \t\tintensity - hours slept last night - mood level"
         n = 7
         until n < 1
         view[view.length - n] 
-        p    "#{view[view.length - n][0]} - #{view[view.length - n][2]} - #{view[view.length - n][3]} - #{view[view.length - n][4]} - #{view[view.length - n][5]}"
+        puts "#{view[view.length - n][0]} - #{view[view.length - n][2]} - \t\t#{view[view.length - n][3]} - \t\t#{view[view.length - n][4]} - \t\t\t#{view[view.length - n][5]}"
         n-=1
         end
 
     elsif period == 3
-        view = db.execute("SELECT * FROM workouts")
-        p "# - Type - intensity - hours slept - mood level"
+        # view = db.execute("SELECT * FROM workouts")
+        puts "# - Type - \t\tintensity - hours slept last night - mood level"
         n = 30
         until n < 1
         view[view.length - n] 
-        p    "#{view[view.length - n][0]} - #{view[view.length - n][2]} - #{view[view.length - n][3]} - #{view[view.length - n][4]} - #{view[view.length - n][5]}"
+        puts "#{view[view.length - n][0]} - #{view[view.length - n][2]} - \t\t#{view[view.length - n][3]} - \t\t#{view[view.length - n][4]} - \t\t\t#{view[view.length - n][5]}"
         n-=1
         end
 
     elsif period == 4
-        view = db.execute("SELECT * FROM workouts")
-        p "# - Type - intensity - hours slept - mood level"
+        # view = db.execute("SELECT * FROM workouts")
+        puts "# - Type - \t\tintensity - hours slept last night - mood level"
         view.each do |view| 
-        puts    "#{view[0]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
-    end
+        puts    "#{view[0]} - #{view[2]}  \t\t#{view[3]}  \t\t#{view[4]}  \t\t#{view[5]}"
+                end
+    elsif period == 5
+        view1 = <<-VIEW1
+            SELECT * FROM workouts WHERE workout="true"
+            VIEW1
+
+        view = db.execute(view1)
+        puts "# - Type - \t\tintensity - hours slept last night - mood level"
+        view.each do |view| 
+        puts    "#{view[0]} - #{view[2]}  \t\t#{view[3]}  \t\t#{view[4]}  \t\t#{view[5]}"
+                end
+            
     end     
         
 end
 
 def choice3(db)
 
-    # create_food_table = <<-F
-    # CREATE TABLE IF NOT EXISTS food(
-    # id INTEGER PRIMARY KEY,
-    # name VARCHAR(255),
-    # )
-    # F
-    # db.execute(create_food_table)
-    # db.execute("INSERT INTO food (name) VALUES ("rice")")
+    create_food_table = <<-F
+    CREATE TABLE IF NOT EXISTS food(
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(255),
+    )
+
+    INSERT INTO food (name) VALUES ("rice")
+
+    F
+    db.execute(create_food_table)
+    # rice = <<-RI
+    # INSERT INTO food (name) VALUES ("rice")
+    # RI
+    # db.execute(rice)
     food = db.execute("SELECT * FROM food")
     puts "your food collection: #{food.join(", ")}"
     puts "you random healthy food for today is #{(food[rand(0..(food.length-1))]).join("")}"
