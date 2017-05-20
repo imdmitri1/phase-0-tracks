@@ -38,8 +38,14 @@ def choice1(db)
     end
 
     db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[workout, description, level, night, mood])
+    
+    #20.times {db.execute("INSERT INTO workouts (workout, description, level, night, mood) VALUES (?, ?, ?, ?, ?)",[["true","false"][rand(0..1)], ["pool","run","weight lifting"][rand(0..2)], rand(1..5), rand(5..8), rand(1..5)]) }
+
+    view = db.execute("SELECT * FROM workouts")
+    view.each do |view| 
+        puts    "#{view[1]} - #{view[2]} - #{view[3]} - #{view[4]} - #{view[5]}"
+    end
 end
-=begin
 def choice2
    puts <<-PER1
     what period do you want to see?
@@ -67,6 +73,7 @@ def choice2
     end     
         
 end
+=begin
 
 # random food?????????????????
 def choice3
