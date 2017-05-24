@@ -1,5 +1,6 @@
 ##JQuery
 
+#####Plan:
 >1. google what we need it for
 >2. checkout W3S
 >3. Find cheat sheet
