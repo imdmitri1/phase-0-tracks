@@ -24,4 +24,8 @@ post '/students' do
   redirect '/'
 end
 
+get '/random' do
+    erb :randomstud
+end
+
 # add static resources
