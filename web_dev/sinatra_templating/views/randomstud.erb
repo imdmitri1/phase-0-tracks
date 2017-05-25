@@ -7,21 +7,24 @@
 
 <p>Today is <%= Time.now.strftime('%A') %>.</p>
 <p>
-Lets find all people from specific location:
+Lets find all people from specific location
     
 </p>
 
 <form action="/random" method="GET">
-    <input type="text" name="campus" placeholder="Campus">
+    <input type="text" name="city" placeholder="Campus">
         <button type="submit">find</button>
 </form>
 
 <p>
-    <% @students.each do |y| %>
-    <% if y['campus'] == :city %>
+    <%= @campus %> 
+
+<!--     <% @students.each do |y| %>
+    <% if y['campus'] == @city %>
     <%= y['name'] %>, <%= y['campus'] %>
     <% end %>
     <% end %>
+ -->
 
 </p>
 

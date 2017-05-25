@@ -25,13 +25,10 @@ post '/students' do
 end
 
 get '/random' do
+  city = params[:city]
+  @campus = db.execute("SELECT * FROM students WHERE campus=?",[city])
   @students = db.execute("SELECT * FROM students")
     erb :randomstud
-end
-
-get '/random' do
-    city = params[:campus]
-  @campus = db.execute("SELECT * FROM students WHERE campus=?",[params['name']])
 end
 
 
