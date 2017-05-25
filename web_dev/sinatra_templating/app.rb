@@ -25,6 +25,7 @@ post '/students' do
 end
 
 get '/random' do
+  @students = db.execute("SELECT * FROM students")
     erb :randomstud
 end
 

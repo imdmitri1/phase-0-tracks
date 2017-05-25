@@ -6,7 +6,16 @@
 <body>
 
 <p>Today is <%= Time.now.strftime('%A') %>.</p>
-<p><%= @students[rand(1..50)] %> </p>
+<p>
+
+<ol>
+ <% @students.each do |x| %>
+   <li> <%= x['name'] %> 
+    </li>
+        <% end %>
+    </ol> 
+    
+</p>
 
 </body>
 </html>
