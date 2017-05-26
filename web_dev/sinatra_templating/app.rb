@@ -1,5 +1,6 @@
 # require gems
 require 'sinatra'
+require 'sinatra/reloader' if development?
 require 'sqlite3'
 
 set :public_folder, File.dirname(__FILE__) + '/static'
@@ -26,11 +27,7 @@ end
 
 get '/random' do
   city = params[:city]
-  @campus = db.execute("SELECT * FROM students WHERE campus=?",[city])
   @students = db.execute("SELECT * FROM students")
-    erb :randomstud
+  @campus = db.execute("SELECT * FROM students WHERE campus=?",[city]) 
+  erb :randomstud
 end
-
-
-
-# add static resources

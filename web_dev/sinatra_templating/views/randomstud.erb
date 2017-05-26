@@ -4,6 +4,7 @@
     <title></title>
 </head>
 <body>
+<a href="/">GO BACK</a>
 
 <p>Today is <%= Time.now.strftime('%A') %>.</p>
 <p>
@@ -17,31 +18,25 @@ Lets find all people from specific location
 </form>
 
 <p>
-    <%= @campus %> 
-
-<!--     <% @students.each do |y| %>
-    <% if y['campus'] == @city %>
-    <%= y['name'] %>, <%= y['campus'] %>
-    <% end %>
-    <% end %>
- -->
-
+    <ul>
+ <% @campus.each do |y| %>
+   <li> <%= y['name'] %>, <%= y['campus'] %>
+    </li>
+        <% end %>
+    </ul> 
 </p>
 
 <p>
-    Hello, <%= @students[rand(1..50)]['name'] %>, you are on duty today!
-
+    Hello guys! <strong><%= @students[rand(1..50)]['name'] %> </strong>, you are on duty today!
 </p>
 
 <p>
-
-<ol>
- <% @students.each do |x| %>
-   <li> <%= x['name'] %>, <%= x['campus'] %>
+ <ol>
+  <% @students.each do |x| %>
+   <li> <%= x['name'] %>, <%= x['campus'] %>, <%= x['age'] %>
     </li>
         <% end %>
     </ol> 
-
 </p>
 
 </body>
